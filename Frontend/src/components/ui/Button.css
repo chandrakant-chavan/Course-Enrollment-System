@@ -1,0 +1,126 @@
+/* Button Component Styles */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-in-out);
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  min-height: 48px;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--orange-gradient);
+  color: var(--white);
+  box-shadow: var(--shadow-orange);
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px -5px rgba(249, 115, 22, 0.5);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--orange-primary);
+  outline-offset: 4px;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: transparent;
+  color: var(--dark-navy);
+  border: 2px solid var(--dark-navy);
+  box-shadow: none;
+}
+
+.btn-secondary.on-dark {
+  color: var(--white);
+  border-color: var(--white);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--dark-navy);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary.on-dark:hover:not(:disabled) {
+  background: var(--white);
+  color: var(--dark-navy);
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--dark-navy);
+  outline-offset: 4px;
+}
+
+.btn-secondary.on-dark:focus-visible {
+  outline-color: var(--white);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 0.625rem 1.25rem;
+  font-size: var(--text-sm);
+  min-height: 40px;
+}
+
+.btn-md {
+  padding: 0.75rem 1.5rem;
+  font-size: var(--text-sm);
+  min-height: 48px;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: var(--text-sm);
+  min-height: 56px;
+}
+
+/* Disabled State */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .btn-sm {
+    min-height: 44px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  
+  .btn:hover:not(:disabled),
+  .btn:active:not(:disabled) {
+    transform: none;
+  }
+}
