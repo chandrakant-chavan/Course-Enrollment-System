@@ -1,16 +1,30 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import { Button, Navbar, Offcanvas } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import { Button, Navbar, Offcanvas, Dropdown } from 'react-bootstrap';
 import Dashboard from './pages/Dashboard';
 import Courses from './pages/Courses';
 import Students from './pages/Students';
 import Enrollments from './pages/Enrollments';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import { logout, getUser } from './services/authService';
 
 const App = () => {
     const [showSidebar, setShowSidebar] = useState(false);
 
     return (
         <Router>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/*" element={<AuthenticatedApp showSidebar={showSidebar} setShowSidebar={setShowSidebar} />} />
+            </Routes>
+        </Router>
+    );
+};
+
+const AuthenticatedApp = ({ showSidebar, setShowSidebar }) => {
+    return (
+        <ProtectedRoute>
             {/* Sidebar Desktop */}
             <aside className="sidebar d-none d-lg-block">
                 <LogoSection />
@@ -48,7 +62,7 @@ const App = () => {
                     </Routes>
                 </div>
             </main>
-        </Router>
+        </ProtectedRoute>
     );
 };
 
@@ -96,26 +110,54 @@ const NavigationLinks = ({ onLinkClick }) => (
     </nav>
 );
 
-const SidebarFooter = () => (
-    <div className="position-absolute bottom-0 start-0 w-100 p-4 border-top border-secondary border-opacity-10 mt-auto">
-        <div className="d-flex align-items-center gap-3 mb-3 p-3 rounded-3" style={{ background: 'rgba(255, 255, 255, 0.05)' }}>
-            <div 
-                className="d-flex align-items-center justify-content-center" 
-                style={{ 
-                    width: '36px', 
-                    height: '36px',
-                    background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                    borderRadius: '10px'
-                }}
-            >
-                <i className="bi bi-sliders text-white"></i>
-            </div>
-            <span className="small text-white fw-medium">Settings</span>
+const SidebarFooter = () => {
+    const navigate = useNavigate();
+    const user = getUser();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
+
+    return (
+        <div className="position-absolute bottom-0 start-0 w-100 p-4 border-top border-secondary border-opacity-10 mt-auto">
+            <Dropdown className="mb-3">
+                <Dropdown.Toggle 
+                    variant="link" 
+                    className="w-100 text-decoration-none p-0 d-flex align-items-center gap-3 p-3 rounded-3" 
+                    style={{ background: 'rgba(255, 255, 255, 0.05)' }}
+                >
+                    <div 
+                        className="d-flex align-items-center justify-content-center" 
+                        style={{ 
+                            width: '36px', 
+                            height: '36px',
+                            background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                            borderRadius: '10px'
+                        }}
+                    >
+                        <i className="bi bi-person-fill text-white"></i>
+                    </div>
+                    <div className="text-start flex-grow-1">
+                        <div className="small text-white fw-medium">{user?.name || 'User'}</div>
+                        <div className="small" style={{ fontSize: '0.7rem', color: '#c7d2fe' }}>
+                            {user?.email || 'user@example.com'}
+                        </div>
+                    </div>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={handleLogout}>
+                        <i className="bi bi-box-arrow-right me-2"></i>
+                        Logout
+                    </Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+            <p className="small mb-0" style={{ fontSize: '0.7rem', color: '#c7d2fe' }}>
+                &copy; 2026 EduFlow Inc. All rights reserved.
+            </p>
         </div>
-        <p className="small mb-0" style={{ fontSize: '0.7rem', color: '#c7d2fe' }}>
-            &copy; 2026 EduFlow Inc. All rights reserved.
-        </p>
-    </div>
-);
+    );
+};
 
 export default App;

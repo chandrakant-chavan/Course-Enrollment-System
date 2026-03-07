@@ -121,6 +121,20 @@ A full-stack web application for managing student enrollments in courses. Built 
 
 ---
 
+## 🌐 Website Structure
+The web application exposes a simple navigation structure, mirroring the core features:
+
+1. **Dashboard** – landing page with system metrics and quick links.
+2. **Students** – manage student records (list, add, edit, delete).
+3. **Courses** – view and maintain course catalog.
+4. **Enrollments** – oversee student enrollments and statuses.
+
+Each page is implemented under `Frontend/src/pages` and is reachable via the top navigation bar. This layout ensures a user-friendly flow between the main sections of the site.
+
+---
+
+---
+
 ## 📦 Prerequisites
 
 Before you begin, ensure you have the following installed:
