@@ -165,7 +165,7 @@ Before you begin, ensure you have the following installed:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/course-enrollment-system.git
+git clone https://github.com/chandrakant-chavan/course-enrollment-system.git
 cd course-enrollment-system
 ```
 
@@ -358,42 +358,94 @@ course-enrollment-system/
 │   │   └── main/
 │   │       ├── java/
 │   │       │   └── com/example/coursebooking/
-│   │       │       ├── config/              # Configuration classes
-│   │       │       ├── controller/          # REST Controllers
-│   │       │       ├── dto/                 # Data Transfer Objects
-│   │       │       ├── exception/           # Exception handling
-│   │       │       ├── model/               # Domain models
-│   │       │       ├── repository/          # Data repositories
-│   │       │       ├── service/             # Business logic
+│   │       │       ├── config/
+│   │       │       │   ├── CorsConfig.java
+│   │       │       │   └── SecurityConfig.java          # Security & OAuth2 config
+│   │       │       ├── controller/
+│   │       │       │   ├── AuthController.java          # Authentication endpoints
+│   │       │       │   ├── courseController.java
+│   │       │       │   ├── enrollmentController.java
+│   │       │       │   ├── HealthController.java
+│   │       │       │   └── studentController.java
+│   │       │       ├── dto/
+│   │       │       │   ├── ApiResponse.java
+│   │       │       │   ├── AuthRequest.java             # Login/Register request
+│   │       │       │   ├── AuthResponse.java            # Auth response with JWT
+│   │       │       │   └── BookingRequest.java
+│   │       │       ├── exception/
+│   │       │       │   ├── DuplicateResourceException.java
+│   │       │       │   ├── GlobalExceptionHandler.java
+│   │       │       │   ├── InsufficientSeatsException.java
+│   │       │       │   └── ResourceNotFoundException.java
+│   │       │       ├── model/
+│   │       │       │   ├── Course.java
+│   │       │       │   ├── Enrollment.java
+│   │       │       │   ├── Student.java
+│   │       │       │   └── User.java                    # User authentication model
+│   │       │       ├── repository/
+│   │       │       │   ├── courseRepository.java
+│   │       │       │   ├── enrollmentRepository.java
+│   │       │       │   ├── studentRepository.java
+│   │       │       │   └── UserRepository.java          # User data access
+│   │       │       ├── security/                        # Security components
+│   │       │       │   ├── CustomUserDetailsService.java
+│   │       │       │   ├── JwtAuthenticationFilter.java
+│   │       │       │   └── JwtUtil.java                 # JWT token utility
+│   │       │       ├── service/
+│   │       │       │   ├── AuthService.java             # Authentication logic
+│   │       │       │   ├── courseService.java
+│   │       │       │   ├── enrollmentService.java
+│   │       │       │   └── studentService.java
 │   │       │       └── CoursebookingApplication.java
 │   │       └── resources/
-│   │           └── application.properties   # Configuration
-│   ├── pom.xml                              # Maven dependencies
-│   └── .gitignore
+│   │           └── application.properties               # Config + OAuth2 settings
+│   ├── pom.xml
+│   ├── .gitignore
+│   └── api_endpoints.txt
 │
 ├── Frontend/
-│   ├── public/                              # Static assets
+│   ├── public/
+│   │   └── vite.svg
 │   ├── src/
-│   │   ├── pages/                           # Page components
+│   │   ├── components/
+│   │   │   ├── ProtectedRoute.jsx                      # Route protection
+│   │   │   └── ui/
+│   │   │       ├── Button.jsx
+│   │   │       ├── Button.css
+│   │   │       ├── Card.jsx
+│   │   │       ├── Card.css
+│   │   │       ├── Input.jsx
+│   │   │       ├── Input.css
+│   │   │       └── index.js
+│   │   ├── pages/
 │   │   │   ├── Dashboard.jsx
-│   │   │   ├── Customers.jsx               # Students page
-│   │   │   ├── Flights.jsx                 # Courses page
-│   │   │   └── Bookings.jsx                # Enrollments page
+│   │   │   ├── Students.jsx
+│   │   │   ├── Courses.jsx
+│   │   │   ├── Enrollments.jsx
+│   │   │   └── Login.jsx                               # Login/Register page
 │   │   ├── services/
-│   │   │   └── api.js                      # API service
-│   │   ├── App.jsx                         # Main component
-│   │   ├── main.jsx                        # Entry point
-│   │   └── index.css                       # Global styles
-│   ├── package.json                        # npm dependencies
-│   ├── vite.config.js                      # Vite configuration
-│   └── .gitignore
+│   │   │   ├── api.js                                  # API client with JWT
+│   │   │   └── authService.js                          # Authentication service
+│   │   ├── styles/
+│   │   │   └── design-system.css
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.js
+│   ├── eslint.config.js
+│   ├── .gitignore
+│   └── README.md
 │
-├── README.md                                # This file
-└── Documentation/                           # Additional docs
-    ├── API_VERIFICATION_REPORT.md
-    ├── COMPILATION_FIXES.md
-    ├── STARTUP_GUIDE.md
-    └── TECH_STACK_VERIFICATION.md
+├── README.md
+├── AUTHENTICATION_SETUP.md                             # Auth setup guide
+├── ERRORS_FIXED.md                                     # Error resolution log
+├── STARTUP_GUIDE.md
+├── IMPLEMENTATION_REPORT.md
+├── CODE_STRUCTURE_REPORT.md
+└── FINAL_VERIFICATION_SUMMARY.md
 ```
 
 ---
@@ -615,7 +667,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
+- **Chandrakant** - (https://github.com/chandrakant-chavan)
 
 ---
 
@@ -649,8 +701,8 @@ For support, email your-email@example.com or open an issue in the GitHub reposit
 
 - [Live Demo](https://your-demo-url.com) (if available)
 - [API Documentation](https://your-api-docs-url.com) (if available)
-- [Project Board](https://github.com/yourusername/course-enrollment-system/projects)
-- [Issue Tracker](https://github.com/yourusername/course-enrollment-system/issues)
+- [Project Board](https://github.com/chandrakant-chavan/course-enrollment-system/projects)
+- [Issue Tracker](https://github.com/chandrakant-chavan/course-enrollment-system/issues)
 
 ---
 
